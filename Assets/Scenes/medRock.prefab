@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -2204321799916321285}
   - component: {fileID: 2297802228199856150}
   - component: {fileID: -2743101219087069318}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: medRock
-  m_TagString: Untagged
+  m_TagString: medRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

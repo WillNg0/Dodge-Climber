@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8599736435440879356}
   - component: {fileID: 5742878035564463720}
   - component: {fileID: 5111386813540135678}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LargeRock
-  m_TagString: Untagged
+  m_TagString: LargeRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

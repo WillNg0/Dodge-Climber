@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -9075172441070328733}
   - component: {fileID: -6832206416784168523}
   - component: {fileID: -122016597000481162}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: smallRock
-  m_TagString: Untagged
+  m_TagString: smallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
