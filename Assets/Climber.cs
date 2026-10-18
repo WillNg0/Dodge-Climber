@@ -5,15 +5,22 @@ using UnityEngine.SceneManagement;
 public class Climber : MonoBehaviour
 {   
 
+    [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
     private Vector2 moveInput;
     private Rigidbody2D rb;
+
+    [Header("Health")]
     private int maxLives = 3;
     private int currLives;
     private float invincibilityDur = 1.5f;
     private bool isInvincible = false;
     private Vector3 startPos;
-    private SpriteRenderer spriteRender; 
+    private SpriteRenderer spriteRender;
+
+    [Header("Shooting")]
+    [SerializeField] private GameObject axePrefab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {   Debug.Log("test");
@@ -29,6 +36,8 @@ public class Climber : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
+
+        if(Input.GetKeyDown(KeyCode.Space)) ThrowAxe();
     }
 
     void FixedUpdate()
@@ -36,9 +45,15 @@ public class Climber : MonoBehaviour
         rb.linearVelocity = moveInput * moveSpeed;
     }
 
+    void ThrowAxe()
+    {
+        if(axePrefab == null) return;
+        Instantiate(axePrefab, transform.position, Quaternion.identity);
+    }
+
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        Debug.Log("collision");
+        //Debug.Log("collision");
         if(isInvincible) return;
         
         GameObject collideWith = coll.gameObject;

@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a875b433636b54a84183637b422636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RockMovement
+  rockHealth: 3
 --- !u!50 &5111386813540135678
 Rigidbody2D:
   serializedVersion: 5

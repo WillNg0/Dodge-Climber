@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a875b433636b54a84183637b422636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingRock
+  rockHealth: 2
 --- !u!60 &2297802228199856150
 PolygonCollider2D:
   m_ObjectHideFlags: 0

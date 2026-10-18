@@ -545,6 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Climber
   moveSpeed: 5
+  axePrefab: {fileID: 5832259236583447054, guid: bac186b60b6a6c64c96b069949cacdea, type: 3}
 --- !u!50 &883815394
 Rigidbody2D:
   serializedVersion: 5
