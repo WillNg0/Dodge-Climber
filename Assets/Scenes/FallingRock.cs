@@ -1,14 +1,16 @@
-using System.Numerics;
 using UnityEngine;
 
 public class FallingRock : MonoBehaviour
 {
     private float bottomBound;
     [SerializeField] private int rockHealth = 1;
+    private ScoreCounter scoreCounter;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameObject scoreGO = GameObject.Find("ScoreCounter");
+        scoreCounter = scoreGO.GetComponent<ScoreCounter>();
         bottomBound = -15f;
     }
 
@@ -34,6 +36,22 @@ public class FallingRock : MonoBehaviour
 
     void shatterRock()
     {
+        int points = 0;
+        if(gameObject.CompareTag("LargeRock"))
+        {
+            points = 100;
+        }
+        else if (gameObject.CompareTag("medRock"))
+        {
+            points = 50;
+        }
+        else if(gameObject.CompareTag("smallRock"))
+        {
+            points = 25;
+        }
+
+        scoreCounter.AddScore(points);
+        HighScore.TRY_SET_HIGH_SCORE(scoreCounter.score);
         Destroy(gameObject);
     }
 }
