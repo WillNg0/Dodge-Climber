@@ -441,10 +441,11 @@ MonoBehaviour:
   bigRock: {fileID: 8989915003877827939, guid: 0e349db1fbe458742bd3fa8cf0c0c8c9, type: 3}
   initialSpawnRate: 2
   minSpawnRate: 0.3
-  spawnRateDifficultyCurve: 0.05
+  spawnRateDifficultyCurve: 13
+  difficultyInterval: 3
   initialSpeed: 1.5
   maxSpeed: 3
-  speedDifficultyCurve: 0.05
+  speedDifficultyCurve: 16
 --- !u!4 &543964871
 Transform:
   m_ObjectHideFlags: 0

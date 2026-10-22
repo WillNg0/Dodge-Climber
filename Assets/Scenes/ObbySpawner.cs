@@ -7,15 +7,17 @@ public class ObbySpawner : MonoBehaviour
     [SerializeField] private GameObject medRock;
     [SerializeField] private GameObject bigRock;
 
-    [Header("Spawn Rate Scaling")]
+    [Header("Difficulty Scaling")]
     [SerializeField] private float initialSpawnRate = 2.0f;
     [SerializeField] private float minSpawnRate = 0.3f;
-    [SerializeField] private float spawnRateDifficultyCurve = 0.05f;
+    [SerializeField] private float spawnRateDifficultyCurve = 0.35f;
+    [SerializeField] private float difficultyInterval = 5f;
+    private float nextDifficultyInterval;
 
     [Header("Speed Scaling")]
     [SerializeField] private float initialSpeed = 0.3f;
     [SerializeField] private float maxSpeed = 5.0f;
-    [SerializeField] private float speedDifficultyCurve = 0.02f;
+    [SerializeField] private float speedDifficultyCurve = 0.4f;
 
     private float currSpawnRate;
     private float currSpeed;
@@ -30,19 +32,25 @@ public class ObbySpawner : MonoBehaviour
         currSpawnRate = initialSpawnRate;
         currSpeed = initialSpeed;
         nextSpawnTime = Time.time + currSpawnRate;
+        nextDifficultyInterval = Time.time + difficultyInterval;
         
         Vector3 topLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
         Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
-        minX = topLeft.x + 0.8f;
-        maxX = topRight.x + 0.8f;
+        minX = topLeft.x + 0.4f;
+        maxX = topRight.x + 0.4f;
         spawnY = topLeft.y + 1.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        IncreaseDifficulty();
+        if(Time.time >= nextDifficultyInterval)
+        {
+            Debug.Log("increasing diff");
+            IncreaseDifficulty();
+            nextDifficultyInterval += difficultyInterval; 
+        }
 
         if (Time.time >= nextSpawnTime)
         {
