@@ -23,8 +23,8 @@ public class Climber : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {   Debug.Log("test");
-        rb = GetComponent<Rigidbody2D>();
+    {   
+        rb = GetComponent<Rigidbody2D>(); //get rigidbody2d of climber
         currLives = maxLives;
         startPos = transform.position;
         spriteRender = GetComponent<SpriteRenderer>();
@@ -33,51 +33,68 @@ public class Climber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //gets movement input: wasd or arrow keys
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
 
+        //press spacebar to throw axe projectile
         if(Input.GetKeyDown(KeyCode.Space)) ThrowAxe();
     }
 
     void FixedUpdate()
     {
+        //move body based on input and speed
         rb.linearVelocity = moveInput * moveSpeed;
     }
 
     void ThrowAxe()
     {
         if(axePrefab == null) return;
-        Instantiate(axePrefab, transform.position, Quaternion.identity);
+        Instantiate(axePrefab, transform.position, Quaternion.identity); //throw axe from climber's position
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
         //Debug.Log("collision");
-        if(isInvincible) return;
-        
+        if(isInvincible) return; 
+
+        //lose a life if climber collides with rock
         GameObject collideWith = coll.gameObject;
         if(collideWith.CompareTag("LargeRock") || 
            collideWith.CompareTag("medRock") ||
            collideWith.CompareTag("smallRock"))
         {
-            if (isInvincible) return;
             LoseLife();
             Destroy(collideWith);
+        }
+    }
+
+    //collision logic for goat (want goat to phase through climber but still take damage)
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (isInvincible) return;
+
+        GameObject collideWith = coll.gameObject;
+        if(collideWith.CompareTag("Goat"))
+        {
+            LoseLife();
         }
     }
 
     void LoseLife()
     {
         currLives--;
+        //if all lives are lost, restart game from beginning
         if(currLives <= 0)
         {
             SceneManager.LoadScene("Scene_0_");
         }
         else
         {
+            //restart player at default spawn position if hit
             transform.position = startPos;
-            StartCoroutine(BecomeInvincible());
+            StartCoroutine(BecomeInvincible()); //become temporarily invincible if hit
         }
     }
 
@@ -85,6 +102,8 @@ public class Climber : MonoBehaviour
     {
         isInvincible = true;
         float currInvincibleDur = 0f;
+        
+        //flash the climber sprite to indicate climber is invincible
         while(currInvincibleDur < invincibilityDur)
         {
             spriteRender.enabled = !spriteRender.enabled;
@@ -92,6 +111,7 @@ public class Climber : MonoBehaviour
             currInvincibleDur += 0.15f;
         }
 
+        //return climber to normal
         spriteRender.enabled = true;
         isInvincible = false;
     }

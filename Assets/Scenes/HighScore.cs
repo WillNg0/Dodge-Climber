@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -9,22 +7,30 @@ public class HighScore : MonoBehaviour
     static private int _SCORE = 0;
 
     void Awake()
-    {
+    {   
+        
         _UI_TEXT = GetComponent<TextMeshProUGUI>();
+
+        //load saved high score
         if (PlayerPrefs.HasKey("HighScore"))
         {
             SCORE = PlayerPrefs.GetInt("HighScore");
         }
         else 
         {
+            //create initial high score if none exist
             PlayerPrefs.SetInt("HighScore", SCORE);
-        }
-        UpdateUI();
-    }
+        } 
+        UpdateUI(); //display loaded score
+    } 
 
+    //used to access and update the high score
     static public int SCORE
-    {
+    {   
+        //returns current high score
         get {return _SCORE; }
+
+        //set high score
         private set
         {
             _SCORE = value;
@@ -33,6 +39,7 @@ public class HighScore : MonoBehaviour
         }
     }
 
+    //check whether new high score can be set if current score is higher than saved high score
     static public void TRY_SET_HIGH_SCORE(int scoreToTry)
     {
         if (scoreToTry <= SCORE) return;
@@ -43,8 +50,8 @@ public class HighScore : MonoBehaviour
     static void UpdateUI()
     {
         if (_UI_TEXT != null) 
-        {
-            _UI_TEXT.text = "High score: " + _SCORE.ToString("#,0");
+        {  
+            _UI_TEXT.text = "High score: " + _SCORE.ToString("#,0"); //display score
         }
     }
 
@@ -53,6 +60,8 @@ public class HighScore : MonoBehaviour
 
     void OnDrawGizmos()
     {
+
+        //resets score when checkbox is checked
         if(resetHighScoreNow)
         {
             resetHighScoreNow = false;

@@ -11,22 +11,24 @@ public class AxeProjectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.up * speed; //throw axe up with constant velocity
-        rb.angularVelocity = rotation;
+        rb.angularVelocity = rotation; //make axe spin
         Destroy(gameObject, 3f); //destroy axe after leaving screen
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
+        //check if axe hit any rock
         if (coll.CompareTag("LargeRock") ||
             coll.CompareTag("medRock") ||
             coll.CompareTag("smallRock"))
         {
+            //get the rock that was hit and make it take damage
             FallingRock rock = coll.GetComponent<FallingRock>();
             if(rock != null)
             {
-                rock.TakeDamage(damage);
+                rock.TakeDamage(damage); 
             }
-            Destroy(gameObject);
+            Destroy(gameObject); //destroy axe after collision
         }
     }
     // Update is called once per frame
