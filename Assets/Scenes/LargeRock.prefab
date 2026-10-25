@@ -243,6 +243,8 @@ MonoBehaviour:
   rockHealth: 3
   sizeDownRock: {fileID: 2356104468496604704, guid: 60913c0392636ff4f96051fb352132c2, type: 3}
   splitSpreadForce: 5
+  rockBreakSFX: {fileID: 8300000, guid: 6969f40d14788654da668c36d74db81b, type: 3}
+  rockBreakVol: 1
 --- !u!50 &5111386813540135678
 Rigidbody2D:
   serializedVersion: 5

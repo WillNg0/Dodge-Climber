@@ -69,14 +69,17 @@ public class ObbySpawner : MonoBehaviour
     void IncreaseDifficulty()
     {   
         POINT_MULTIPLIER += 0.5f; // increase point multiplier to match difficulty
-        if(currSpawnRate > minSpawnRate)
+        currSpawnRate -= spawnRateDifficultyCurve; //make rocks spawn faster
+        currSpeed += speedDifficultyCurve; //make rocks fall faster
+        
+        if(currSpawnRate < minSpawnRate)
         {
-            currSpawnRate -= spawnRateDifficultyCurve * Time.deltaTime; //make rocks spawn faster
+            currSpawnRate = minSpawnRate;
         }
 
-        if (currSpeed < maxSpeed)
+        if (currSpeed > maxSpeed)
         {
-            currSpeed += speedDifficultyCurve * Time.deltaTime; //make rocks fall faster
+            currSpeed = maxSpeed;
         }
     }
 

@@ -8,6 +8,9 @@ public class FallingRock : MonoBehaviour
     [SerializeField] private float splitSpreadForce = 5f;
     private ScoreCounter scoreCounter;
 
+    [SerializeField] private AudioClip rockBreakSFX;
+    [SerializeField] private float rockBreakVol = 1f;
+
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,7 +42,8 @@ public class FallingRock : MonoBehaviour
     }
 
     void shatterRock()
-    {
+    {   
+        AudioSource.PlayClipAtPoint(rockBreakSFX, transform.position, rockBreakVol); //play audio when rock breaks
         int points = 0;
         int shatteredRocks = 0;
 

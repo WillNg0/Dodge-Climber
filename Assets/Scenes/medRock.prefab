@@ -110,6 +110,8 @@ MonoBehaviour:
   rockHealth: 2
   sizeDownRock: {fileID: 2356104468496604704, guid: 60913c0392636ff4f96051fb352132c2, type: 3}
   splitSpreadForce: 5
+  rockBreakSFX: {fileID: 8300000, guid: 6969f40d14788654da668c36d74db81b, type: 3}
+  rockBreakVol: 1
 --- !u!60 &2297802228199856150
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class Goat : MonoBehaviour
     private float screenBoundaryX;
     private float dashDir = 1f;
 
+    [SerializeField] private AudioClip goatSound;
+    [SerializeField] private float goatSoundVol = 1f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,6 +44,7 @@ public class Goat : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //dash
+        AudioSource.PlayClipAtPoint(goatSound, transform.position, goatSoundVol);
         rb.linearVelocity = new Vector2(dashDir * dashSpeed, downwardAngle);
     }
 

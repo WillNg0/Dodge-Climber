@@ -122,6 +122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Goat
   dashSpeed: 8
   downwardAngle: -1.5
+  goatSound: {fileID: 8300000, guid: e6492aaafff303d46bf4d4ef95e3b9f9, type: 3}
+  goatSoundVol: 10
 --- !u!1001 &4654477455256572226
 PrefabInstance:
   m_ObjectHideFlags: 0

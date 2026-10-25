@@ -23,6 +23,14 @@ public class Climber : MonoBehaviour
     [Header("Shooting")]
     [SerializeField] private GameObject axePrefab;
 
+    [SerializeField] private AudioClip throwSFX;
+    [SerializeField] private float throwSFXVol = 1f;
+    [SerializeField] private AudioClip hitSFX;
+    [SerializeField] private float hitSFXVol = 1f;
+    [SerializeField] private AudioClip restartSFX;
+    [SerializeField] private float restartVol = 1f;    
+
+    public GameOver gameManager; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {   
@@ -81,7 +89,8 @@ public class Climber : MonoBehaviour
     void ThrowAxe()
     {
         if(axePrefab == null) return;
-        Instantiate(axePrefab, transform.position, Quaternion.identity); //throw axe from climber's position
+        Instantiate(axePrefab, transform.position, Quaternion.identity); // throw axe from climber's position
+        AudioSource.PlayClipAtPoint(throwSFX, transform.position, throwSFXVol); //play audio when climber throws axe
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
@@ -115,14 +124,15 @@ public class Climber : MonoBehaviour
     void LoseLife()
     {
         currLives--;
-
+        AudioSource.PlayClipAtPoint(hitSFX, transform.position, hitSFXVol); //play audio when climber gets hit
         //update lives
         LiveScript.SET_LIVES(currLives);
         
         //if all lives are lost, restart game from beginning
         if(currLives <= 0)
-        {
-            SceneManager.LoadScene("Scene_0_");
+        {   
+            AudioSource.PlayClipAtPoint(restartSFX, transform.position, restartVol);
+            gameManager.gameOver();
         }
         else
         {
