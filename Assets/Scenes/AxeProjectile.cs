@@ -34,6 +34,14 @@ public class AxeProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //destroy axe once its outside the screen visibly
+        Vector3 camBound = Camera.main.WorldToViewportPoint(transform.position);
+        if(camBound.x < 0f ||
+           camBound.x > 1f ||
+           camBound.y < 0f ||
+           camBound.y > 1f)
+        {
+            Destroy(gameObject);
+        }
     }
 }

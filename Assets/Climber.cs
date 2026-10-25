@@ -18,6 +18,8 @@ public class Climber : MonoBehaviour
     private Vector3 startPos;
     private SpriteRenderer spriteRender;
 
+    private Collider2D climberCollider; 
+
     [Header("Shooting")]
     [SerializeField] private GameObject axePrefab;
 
@@ -31,6 +33,9 @@ public class Climber : MonoBehaviour
 
         //match the UI text with the starting lives
         LiveScript.SET_LIVES(currLives);
+
+        //get collider component of climber
+        climberCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -49,6 +54,28 @@ public class Climber : MonoBehaviour
     {
         //move body based on input and speed
         rb.linearVelocity = moveInput * moveSpeed;
+
+        //get bottom left corner of screen
+        Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f, -Camera.main.transform.position.z));
+       
+        //get top right corner of screen
+        Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, -Camera.main.transform.position.z));
+
+        //get half of the width and height of climber to keep it on screen
+        float halfWidth = climberCollider.bounds.extents.x;
+        float halfHeight = climberCollider.bounds.extents.y;
+
+        //get climber's current position
+        Vector2 clampedPosition = rb.position;
+
+        //restrict horizontal movement to camera boundaries
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, bottomLeft.x + halfWidth, topRight.x - halfWidth);
+
+        //restrict vertical movement to camera boundaries
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, bottomLeft.y + halfHeight, topRight.y - halfHeight);
+
+        //apply restricted position back to the rigidbody
+        rb.position = clampedPosition;
     }
 
     void ThrowAxe()

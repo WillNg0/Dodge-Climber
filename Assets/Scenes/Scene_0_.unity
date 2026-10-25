@@ -443,8 +443,8 @@ MonoBehaviour:
   minSpawnRate: 0.3
   spawnRateDifficultyCurve: 18
   difficultyInterval: 5
-  initialSpeed: 1.5
-  maxSpeed: 3
+  initialSpeed: 3
+  maxSpeed: 6
   speedDifficultyCurve: 21
 --- !u!4 &543964871
 Transform:
