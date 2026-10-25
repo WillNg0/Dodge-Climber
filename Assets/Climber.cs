@@ -28,6 +28,9 @@ public class Climber : MonoBehaviour
         currLives = maxLives;
         startPos = transform.position;
         spriteRender = GetComponent<SpriteRenderer>();
+
+        //match the UI text with the starting lives
+        LiveScript.SET_LIVES(currLives);
     }
 
     // Update is called once per frame
@@ -85,6 +88,10 @@ public class Climber : MonoBehaviour
     void LoseLife()
     {
         currLives--;
+
+        //update lives
+        LiveScript.SET_LIVES(currLives);
+        
         //if all lives are lost, restart game from beginning
         if(currLives <= 0)
         {
@@ -101,6 +108,14 @@ public class Climber : MonoBehaviour
     IEnumerator BecomeInvincible()
     {
         isInvincible = true;
+
+        //get IDs for the climber and obstacle layer
+        int climberLayer = LayerMask.NameToLayer("Climber");
+        int obbyLayer = LayerMask.NameToLayer("Obstacles");
+
+        //ignore contact between climber and obstacle so climber does not stop rocks when invincible
+        Physics2D.IgnoreLayerCollision(climberLayer, obbyLayer, true);
+
         float currInvincibleDur = 0f;
         
         //flash the climber sprite to indicate climber is invincible
@@ -112,6 +127,7 @@ public class Climber : MonoBehaviour
         }
 
         //return climber to normal
+        Physics2D.IgnoreLayerCollision(climberLayer, obbyLayer, false);
         spriteRender.enabled = true;
         isInvincible = false;
     }

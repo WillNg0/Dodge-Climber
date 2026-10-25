@@ -59,9 +59,12 @@ public class FallingRock : MonoBehaviour
         {
             points = 25;
         }
+        
+        //apply point multiplier
+        int finalPoints = Mathf.RoundToInt(points * ObbySpawner.POINT_MULTIPLIER);
 
         //add points and see if it sets new high score
-        scoreCounter.AddScore(points);
+        scoreCounter.AddScore(finalPoints);
         HighScore.TRY_SET_HIGH_SCORE(scoreCounter.score);
 
 

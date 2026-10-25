@@ -14,6 +14,7 @@ public class ObbySpawner : MonoBehaviour
     [SerializeField] private float spawnRateDifficultyCurve = 0.35f; //how harder the difficulty gets
     [SerializeField] private float difficultyInterval = 5f; //how often the difficulty increases
     private float nextDifficultyInterval; //keep track of when the difficulty should increase
+    public static float POINT_MULTIPLIER = 1;
 
     [Header("Speed Scaling")]
     [SerializeField] private float initialSpeed = 0.3f;
@@ -42,6 +43,8 @@ public class ObbySpawner : MonoBehaviour
         minX = topLeft.x + 0.4f; //so the obstacles dont spawn too off screen
         maxX = topRight.x + 0.4f;
         spawnY = topLeft.y + 0.5f; //spawn just above screen 
+
+        POINT_MULTIPLIER = 1; //reset point multiplier back to 1
     }
 
     // Update is called once per frame
@@ -64,7 +67,8 @@ public class ObbySpawner : MonoBehaviour
     }
 
     void IncreaseDifficulty()
-    {
+    {   
+        POINT_MULTIPLIER += 0.5f; // increase point multiplier to match difficulty
         if(currSpawnRate > minSpawnRate)
         {
             currSpawnRate -= spawnRateDifficultyCurve * Time.deltaTime; //make rocks spawn faster
